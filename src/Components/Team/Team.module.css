@@ -608,7 +608,7 @@
 
 @media screen and (max-width: 380px) {
     .teamBodyWrapper {
-        height: 185vh;
+        height: 165vh;
         margin-bottom: -40px;
     }
 
