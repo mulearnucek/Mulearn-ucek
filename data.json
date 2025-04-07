@@ -54,13 +54,22 @@
   "gallery": {
     "row1": [
       {
-        "image": "mulearn-ucek assets/gallery/permute.png"
+        "image": "mulearn-ucek assets/gallery/Award_cermony.jpg"
+      },
+      {
+        "image": "mulearn-ucek assets/gallery/Award.jpg"
+      },
+      {
+        "image": "mulearn-ucek assets/gallery/Group.jpg"
       },
       {
         "image": "mulearn-ucek assets/gallery/score.png"
       },
       {
         "image": "mulearn-ucek assets/gallery/score2.png"
+      },
+      {
+        "image": "mulearn-ucek assets/gallery/permute.png"
       }
     ],
     "row2": [
@@ -82,47 +91,51 @@
   },
 
   "team": {
-    "staffAdvisor": {
-      "name": "Vidhya S",
-      "image": "https://t3.ftcdn.net/jpg/08/05/28/22/240_F_805282248_LHUxw7t2pnQ7x8lFEsS2IZgK8IGFXePS.jpg"
-    },
     "campusLead": {
-      "name": "Suryan S",
-      "image": "mulearn-ucek assets/team/suryan.png"
+      "name": "Amarnath Sujith",
+      "image": "mulearn-ucek assets/team/Amarnath.jpg"
     },
     "campusCoLead": {
-      "name": "Adarsh Dev M R",
-      "image": "mulearn-ucek assets/team/Adarsh.jpeg"
+      "name": "Chethas L Pramod",
+      "image": "mulearn-ucek assets/team/Chethas.png"
     },
-    "treasurer": {
-      "name": "OnTheWay",
-      "image": ""
+    "igLead": {
+      "name": "Arjun TK",
+      "image": "mulearn-ucek assets/team/Arjun TK.jpg"
     },
     "technicalLead": {
-      "name": "OnTheWay",
-      "image": ""
+      "name": "Richard S",
+      "image": "mulearn-ucek assets/team/Richard.jpg"
     },
     "mediaLead": {
-      "name": "Arunkumar D",
-      "image": "mulearn-ucek assets/team/arun.jpg"
+      "name": "Bhagyasree",
+      "image": "mulearn-ucek assets/team/Bhagyashree.jpg"
     },
-    "contentLead": {
-      "name": "Mahesh S",
-      "image": "mulearn-ucek assets/team/mahesh.jpg"
+    "marketingLead": {
+      "name": "Sooryakanth S",
+      "image": "mulearn-ucek assets/team/Sooryakanth.jpg"
     },
     "operationLead": {
-      "name": "Krishna Prasanth S",
-      "image": "mulearn-ucek assets/team/KP.png"
+      "name": "Aadil Mohamed A",
+      "image": "mulearn-ucek assets/team/Aadil.jpg"
+    },
+    "communityLead": {
+      "name": "Aswath S A",
+      "image": "mulearn-ucek assets/team/Ashwath.jpg"
+    },
+    "contentLead": {
+      "name": "Mihirima A R",
+      "image": "mulearn-ucek assets/team/Mihirima.jpg"
     }
   },
 
-  "discordLink": "",
+  "discordLink": "https://discord.gg/GgZCqppkJF",
 
   "whatsAppLink": "",
 
   "email": "mulearnucek@gmail.com",
 
-  "linkedIn": "https://www.linkedin.com/company/mulearn-ucek/ ",
+  "linkedIn": "https://www.linkedin.com/company/mulearnucek/",
 
   "instagram": "https://www.instagram.com/mulearn.ucek/",
 

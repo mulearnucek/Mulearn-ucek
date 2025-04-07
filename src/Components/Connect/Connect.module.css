@@ -5,6 +5,8 @@
   width: 100%;
   padding: 15vh 10vw 5vh;
   gap: 25px;
+  z-index: 100;
+  background-color: white;
 }
 
 .contentWrapper {
