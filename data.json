@@ -7,48 +7,49 @@
 
   "events": [
     {
-      "month": "Coming",
-      "date": "soon",
-      "head": "MuClimb",
-      "para": "Climb up to Level 7",
-      "img": "mulearn-ucek assets/events/muclimb1.png"
+      "month": "Apr",
+      "date": "22",
+      "head": "Mediacon",
+      "para": "Kerala's First Meadia & Entertainment Conference",
+      "img": "mulearn-ucek assets/events/mediacon.jpg"
     },
     {
-      "month": "May",
-      "date": "16",
-      "head": "La La LLM",
-      "para": "La La LLM organised by MulearnUcek",
-      "img": "mulearn-ucek assets/events/LLM.jpeg"
+      "month": "Oct",
+      "date": "14",
+      "head": "μClimb",
+      "para": "μClimb organised by MulearnUcek",
+      "img": "mulearn-ucek assets/events/muclimb.jpg"
     },
 
     {
-      "month": "Feb",
-      "date": "06",
-      "head": "Inspiration Station",
-      "para": "Inspiration station organised by MulearnUcek",
-      "img": "mulearn-ucek assets/events/Isr_pic.png"
-    },
-    {
-      "month": "Dec",
-      "date": "14",
-      "head": "Build N Ship",
-      "para": "A talk session on product development and buildNship ",
-      "img": "mulearn-ucek assets/events/buildnship.png"
-    },
-    {
-      "month": "OCT",
-      "date": "05",
-      "head": "Smart India Internal Hackathon",
-      "para": "Organized in collaboration with Tinkerhub,Foss and IEEE Ucek",
-      "img": "mulearn-ucek assets/events/SIH_pic.png"
-    },
-    {
       "month": "Sep",
-      "date": "14",
+      "date": "26",
       "head": "Mulearn Orientation",
       "para": "Mulearn orientation and onboarding of students",
       "img": "https://wallpaperaccess.com/full/1642272.jpg"
+    },
+    {
+      "month": "Sep",
+      "date": "07",
+      "head": "ERROR_418",
+      "para": "24 hour hackathon organised by MulearnUcek", 
+      "img": "mulearn-ucek assets/events/error418.jpg"
+    },
+    {
+      "month": "July",
+      "date": "03",
+      "head": "Introduction to Game Dev",
+      "para": "Organized by MulearnUcek",
+      "img": "mulearn-ucek assets/events/gamedev.jpg"
+    },
+        {
+      "month": "July",
+      "date": "03",
+      "head": "Dev Expo",
+      "para": "Organized by MulearnUcek",
+      "img": "mulearn-ucek assets/events/devexpo.jpg"
     }
+
   ],
 
   "gallery": {
@@ -58,6 +59,9 @@
       },
       {
         "image": "mulearn-ucek assets/gallery/Award.jpg"
+      },
+      {
+        "image": "mulearn-ucek assets/gallery/shreyas.png"
       },
       {
         "image": "mulearn-ucek assets/gallery/Group.jpg"
@@ -81,7 +85,6 @@
       }
     ]
   },
-
   "statistics": {
     "studentsCount": 297,
     "learningCircles": 32,
@@ -137,5 +140,18 @@
 
   "linkedIn": "https://www.linkedin.com/company/mulearnucek/",
 
-  "instagram": "https://www.instagram.com/mulearn.ucek/"
+  "instagram": "https://www.instagram.com/mulearn.ucek/",
+
+  "achievements": [
+    {
+      "title": "PERMUTE Emerging Campus Award",
+      "description": "University College of Engineering - Emerging Campus 2024",
+      "image": "mulearn-ucek assets/achievements/Award.jpg"
+    },
+    {
+      "title": "Top Karma Miner Award",
+      "description": "Shreyas S - #1 Karma Miner All Over Kerala, 2024",
+      "image": "mulearn-ucek assets/achievements/shreyas.png"
+    }
+  ]
 }
