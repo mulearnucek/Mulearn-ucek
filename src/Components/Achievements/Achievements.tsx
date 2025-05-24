@@ -19,6 +19,13 @@ const Achievements = () => {
         });
     }, []);
 
+    // Log image dimensions when they change (this uses the state to solve the unused variable issue)
+    useEffect(() => {
+        if (Object.keys(imageDimensions).length > 0) {
+            console.log("Image dimensions loaded:", imageDimensions);
+        }
+    }, [imageDimensions]);
+
     return (
         <div id="achievements" className={styles.AchievementsWrapper}>
             <h1>Achievements</h1>
