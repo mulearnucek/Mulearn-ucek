@@ -95,12 +95,12 @@
 
   "team": {
     "campusLead": {
-      "name": "Amarnath Sujith",
-      "image": "mulearn-ucek assets/team/Amarnath.jpg"
-    },
-    "campusCoLead": {
       "name": "Chethas L Pramod",
       "image": "mulearn-ucek assets/team/Chethas.png"
+    },
+    "campusCoLead": {
+      "name": "Aswath S A",
+      "image": "mulearn-ucek assets/team/Ashwath.jpg"
     },
     "igLead": {
       "name": "Arjun TK",
