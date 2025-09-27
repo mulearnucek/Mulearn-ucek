@@ -1,4 +1,5 @@
 import "./App.css";
+import { Routes, Route, useLocation } from "react-router-dom";
 // import { Helmet, HelmetProvider } from "react-helmet-async";
 import Navbar from "./Components/Navbar/Navbar";
 import Home from "./Components/Home/Home";
@@ -11,11 +12,12 @@ import Team from "./Components/Team/Team";
 import Connect from "./Components/Connect/Connect";
 import Footer from "./Components/Footer/Footer";
 import Achievements from "./Components/Achievements/Achievements";
-function App() {
+import TeamMember from "./Components/TeamMember/TeamMember";
 
+// Main homepage component
+const HomePage = () => {
     return (
-        <div className="appWrapper">
-            <Navbar />
+        <>
             <Home />
             <About />
             <Achievements />
@@ -26,6 +28,21 @@ function App() {
             <Team />
             <Connect />
             <Footer />
+        </>
+    );
+};
+
+function App() {
+    const location = useLocation();
+    const isTeamMemberPage = location.pathname.startsWith('/team/');
+    
+    return (
+        <div className="appWrapper">
+            {!isTeamMemberPage && <Navbar />}
+            <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/team/:memberName" element={<TeamMember />} />
+            </Routes>
         </div>
     );
 }
