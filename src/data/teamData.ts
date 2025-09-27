@@ -104,5 +104,65 @@ export const teamMembers: TeamMember[] = [
     email: "mihirima786@gmail.com",
     gender: "Female",
     batch: "2nd Year - CSE 2"
+  },
+  {
+    id: "amarnath-sujith",
+    name: "Amarnath Sujith",
+    role: "Mentor",
+    image: "mulearn-ucek assets/team/Amarnath.jpg",
+    team: "μ",
+    email: "amarsujith9294@gmail.com",
+    gender: "Male",
+    batch: "2nd Year - CSE 1"
+  },
+  {
+    id: "anza-s",
+    name: "Anza S",
+    role: "Co-Lead",
+    image: "mulearn-ucek assets/team/Anza.jpg",
+    team: "Creative",
+    email: "www.sanza006@gmail.com",
+    gender: "Female",
+    batch: "1st Year - IT"
+  },
+  {
+    id: "akshay-g",
+    name: "Akshay G",
+    role: "Co-Lead",
+    image: "mulearn-ucek assets/team/Akshay.jpg",
+    team: "Creative",
+    email: "akshaygopu2006@gmail.com",
+    gender: "Male",
+    batch: "2nd Year - CSE 1"
+  },
+  {
+    id: "aneez-rahuman-m",
+    name: "Aneez Rahuman M",
+    role: "Co-Lead",
+    image: "mulearn-ucek assets/team/Aneez.jpg",
+    team: "Creative",
+    email: "aneezrahumanar710@gmail.com",
+    gender: "Male",
+    batch: "2nd Year - CSE 1"
+  },
+  {
+    id: "sreerag-satheesh-s",
+    name: "Sreerag Satheesh S",
+    role: "Co-Lead",
+    image: "mulearn-ucek assets/team/Sreerag.jpg",
+    team: "Creative",
+    email: "sreeragsatheeshs1@gmail.com",
+    gender: "Male",
+    batch: "2nd Year - CSE 2"
+  },
+  {
+    id: "anjana-ms",
+    name: "Anjana MS",
+    role: "Co-Lead",
+    image: "mulearn-ucek assets/team/Anjana.jpg",
+    team: "Creative",
+    email: "manjuladevi1161@gmail.com",
+    gender: "Female",
+    batch: "1st Year - IT"
   }
 ];
