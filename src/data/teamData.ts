@@ -14,7 +14,6 @@ export interface TeamMember {
   email: string;
   gender: string;
   batch: string;
-  phone: string;
   bio?: string;
   socialLinks?: SocialLink[];
   customLinks?: {
@@ -34,8 +33,7 @@ export const teamMembers: TeamMember[] = [
     team: "μ",
     email: "lchethas@gmail.com",
     gender: "Male",
-    batch: "2nd Year - CSE 1",
-    phone: "8086257650"
+    batch: "2nd Year - CSE 1"
   },
   {
     id: "aswath-s-a",
@@ -45,8 +43,7 @@ export const teamMembers: TeamMember[] = [
     team: "μ",
     email: "aswathsa24@gmail.com",
     gender: "Male",
-    batch: "2nd Year - CSE 1",
-    phone: "7356690727"
+    batch: "2nd Year - CSE 1"
   },
   {
     id: "arjun-tk",
@@ -56,8 +53,7 @@ export const teamMembers: TeamMember[] = [
     team: "Interest Group",
     email: "arjuntk732@gmail.com",
     gender: "Male",
-    batch: "2nd Year - IT",
-    phone: "8943198705"
+    batch: "2nd Year - IT"
   },
   {
     id: "richard-s",
@@ -67,8 +63,7 @@ export const teamMembers: TeamMember[] = [
     team: "Technical",
     email: "richardshaju65@gmail.com",
     gender: "Male",
-    batch: "2nd Year - CSE 2",
-    phone: "9495687674"
+    batch: "2nd Year - CSE 2"
   },
   {
     id: "bhagyasree",
@@ -78,8 +73,7 @@ export const teamMembers: TeamMember[] = [
     team: "Creative",
     email: "bhagyasree489@gmail.com",
     gender: "Female",
-    batch: "2nd Year - CSE 1",
-    phone: "9526543992"
+    batch: "2nd Year - CSE 1"
   },
   {
     id: "sooryakanth-s",
@@ -89,8 +83,7 @@ export const teamMembers: TeamMember[] = [
     team: "Marketing",
     email: "sooryakwest@gmail.com",
     gender: "Male",
-    batch: "1st Year - CSE2",
-    phone: "9656694535"
+    batch: "1st Year - CSE2"
   },
   {
     id: "aadil-mohamed-a",
@@ -100,8 +93,7 @@ export const teamMembers: TeamMember[] = [
     team: "Operations",
     email: "aadilxw@gmail.com",
     gender: "Male",
-    batch: "2nd Year - CSE 1",
-    phone: "8848881976"
+    batch: "2nd Year - CSE 1"
   },
   {
     id: "mihirima-a-r",
@@ -111,7 +103,6 @@ export const teamMembers: TeamMember[] = [
     team: "Content",
     email: "mihirima786@gmail.com",
     gender: "Female",
-    batch: "2nd Year - CSE 2",
-    phone: "8136863253"
+    batch: "2nd Year - CSE 2"
   }
 ];

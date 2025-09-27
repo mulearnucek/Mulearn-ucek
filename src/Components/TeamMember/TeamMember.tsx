@@ -76,15 +76,6 @@ const TeamMember = () => {
                         <span className={styles.infoLabel}>Position</span>
                         <span className={styles.infoValue}>{member.role}</span>
                     </div>
-                    
-                    <div className={styles.infoItem}>
-                        <span className={styles.infoLabel}>Phone</span>
-                        <span className={styles.infoValue}>
-                            <a href={`tel:${member.phone}`} className={styles.phoneLink}>
-                                {member.phone}
-                            </a>
-                        </span>
-                    </div>
                 </div>
 
                 {/* Email Compose Button */}
