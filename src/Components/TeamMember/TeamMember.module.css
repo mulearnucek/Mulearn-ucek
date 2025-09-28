@@ -68,8 +68,17 @@
 }
 
 .profileImage {
-    margin-bottom: 24px;
-    position: relative;
+    margin: 0 auto 24px auto;
+    width: 150px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    border: 5px solid #667eea;
+    box-shadow: 0 12px 30px rgba(102, 126, 234, 0.4);
+    overflow: hidden;
 }
 
 .profileImage img {
@@ -77,13 +86,16 @@
     height: 140px;
     border-radius: 50%;
     object-fit: cover;
-    border: 5px solid #667eea;
-    box-shadow: 0 12px 30px rgba(102, 126, 234, 0.4);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    object-position: center center;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: block;
 }
 
 .profileImage:hover img {
     transform: scale(1.05);
+}
+
+.profileImage:hover {
     box-shadow: 0 16px 40px rgba(102, 126, 234, 0.5);
 }
 
@@ -538,6 +550,149 @@
     .profileImage img:hover {
         transform: scale(1.08) rotate(2deg);
     }
+}
+
+/* Social Links Section */
+.socialSection {
+    margin-bottom: 30px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 30px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.socialSection:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+}
+
+.socialTitle {
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 24px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.socialLinks {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.socialLink {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 16px 20px;
+    background: rgba(255, 255, 255, 0.8);
+    border: 2px solid transparent;
+    border-radius: 15px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.socialLink::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.5s ease;
+}
+
+.socialLink:hover::before {
+    left: 100%;
+}
+
+.socialLink:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    border-color: var(--social-color, #667eea);
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.socialLink svg {
+    font-size: 1.4rem;
+    color: var(--social-color, #667eea);
+    transition: all 0.3s ease;
+}
+
+.socialLink:hover svg {
+    transform: scale(1.1);
+    filter: brightness(1.1);
+}
+
+.socialLink span {
+    flex: 1;
+    text-align: left;
+}
+
+/* Specific social platform styles */
+.socialLink[href*="instagram"] {
+    --social-color: #E4405F;
+}
+
+.socialLink[href*="linkedin"] {
+    --social-color: #0A66C2;
+}
+
+.socialLink[href*="github"] {
+    --social-color: #333;
+}
+
+.socialLink[href*="mulearn"] {
+    --social-color: #F59E0B;
+}
+
+/* Loading and Error States */
+.loadingState,
+.errorState {
+    text-align: center;
+    padding: 60px 20px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.loadingState h2,
+.errorState h2 {
+    margin: 0 0 20px;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.errorState p {
+    margin: 0 0 20px;
+    font-size: 16px;
+    opacity: 0.8;
+}
+
+.errorState a {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 25px;
+    transition: all 0.3s ease;
+}
+
+.errorState a:hover {
+    background: rgba(255, 255, 255, 0.1);
 }
 
 /* Reduce motion for users who prefer it */

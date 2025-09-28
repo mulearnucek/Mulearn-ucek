@@ -1,16 +1,54 @@
 import { useParams, Navigate } from "react-router-dom";
+import { useMemo } from "react";
 import styles from "./TeamMember.module.css";
-import { teamMembers } from "../../data/teamData";
-import { FaEnvelope } from "react-icons/fa";
+import { useTeamMembers } from "../../hooks/useTeamMembers";
+import { FaEnvelope, FaInstagram, FaLinkedinIn, FaGithub, FaExternalLinkAlt } from "react-icons/fa";
+import { getImageUrl, handleImageError } from "../../utils/imageUtils";
 
 const TeamMember = () => {
     const { memberName } = useParams<{ memberName: string }>();
+    const { teamMembers, loading, error } = useTeamMembers();
     
-    // Find the team member by ID
-    const member = teamMembers.find(m => m.id === memberName);
+    // Memoize the member lookup to prevent unnecessary re-renders
+    const member = useMemo(() => {
+        return teamMembers.find(m => m.id === memberName);
+    }, [teamMembers, memberName]);
     
-    console.log('Looking for member:', memberName);
-    console.log('Found member:', member);
+    // Only log once when component mounts or member changes
+    useMemo(() => {
+        if (memberName) {
+            console.log('Looking for member:', memberName);
+            console.log('Found member:', member);
+        }
+    }, [memberName, member]);
+    
+    // Show loading state
+    if (loading) {
+        return (
+            <div className={styles.linkTreeWrapper}>
+                <div className={styles.container}>
+                    <div className={styles.loadingState}>
+                        <h2>Loading team member...</h2>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+    
+    // Show error state
+    if (error) {
+        return (
+            <div className={styles.linkTreeWrapper}>
+                <div className={styles.container}>
+                    <div className={styles.errorState}>
+                        <h2>Error loading team data</h2>
+                        <p>{error}</p>
+                        <a href="/#team">← Back to Team</a>
+                    </div>
+                </div>
+            </div>
+        );
+    }
     
     // If member not found, redirect to team page
     if (!member) {
@@ -28,14 +66,10 @@ const TeamMember = () => {
                 <div className={styles.profileSection}>
                     <div className={styles.profileImage}>
                         <img 
-                            src={`/${member.image.replace(/\s+/g, '%20')}`}
+                            src={getImageUrl(member.image)}
                             alt={member.name}
-                            onError={(e) => {
-                                console.log('Image failed to load:', member.image);
-                                console.log('Attempted URL:', `/${member.image.replace(/\s+/g, '%20')}`);
-                                // Try without URL encoding as fallback
-                                e.currentTarget.src = `/${member.image}`;
-                            }}
+                            loading="lazy"
+                            onError={(e) => handleImageError(e, member.image)}
                         />
                     </div>
                     <h1 className={styles.memberName}>{member.name}</h1>
@@ -68,15 +102,54 @@ const TeamMember = () => {
                     </div>
                     
                     <div className={styles.infoItem}>
-                        <span className={styles.infoLabel}>Batch</span>
-                        <span className={styles.infoValue}>{member.batch}</span>
-                    </div>
-                    
-                    <div className={styles.infoItem}>
                         <span className={styles.infoLabel}>Position</span>
                         <span className={styles.infoValue}>{member.role}</span>
                     </div>
                 </div>
+
+                {/* Social Links Section */}
+                {member.socialLinks && member.socialLinks.length > 0 && (
+                    <div className={styles.socialSection}>
+                        <h3 className={styles.socialTitle}>Connect with me</h3>
+                        <div className={styles.socialLinks}>
+                            {member.socialLinks.map((social, index) => {
+                                let IconComponent = FaExternalLinkAlt;
+                                
+                                // Choose appropriate icon based on platform
+                                switch (social.icon.toLowerCase()) {
+                                    case 'instagram':
+                                        IconComponent = FaInstagram;
+                                        break;
+                                    case 'linkedin':
+                                        IconComponent = FaLinkedinIn;
+                                        break;
+                                    case 'github':
+                                        IconComponent = FaGithub;
+                                        break;
+                                    case 'mulearn':
+                                        IconComponent = FaExternalLinkAlt;
+                                        break;
+                                    default:
+                                        IconComponent = FaExternalLinkAlt;
+                                }
+                                
+                                return (
+                                    <a 
+                                        key={index}
+                                        href={social.url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className={styles.socialLink}
+                                        style={{ '--social-color': social.color } as React.CSSProperties}
+                                    >
+                                        <IconComponent />
+                                        <span>{social.name}</span>
+                                    </a>
+                                );
+                            })}
+                        </div>
+                    </div>
+                )}
 
                 {/* Email Compose Button */}
                 <div className={styles.actionSection}>
