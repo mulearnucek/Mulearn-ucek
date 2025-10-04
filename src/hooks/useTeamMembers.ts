@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { TeamMember } from '../data/teamData';
-import { getTeamMembers } from '../services/googleSheets';
+// import { getTeamMembers } from '../services/googleSheets';
+import { staticTeamMembers } from '../data/staticTeamMembers';
 
 interface UseTeamMembersReturn {
   teamMembers: TeamMember[];
@@ -14,14 +15,17 @@ export const useTeamMembers = (): UseTeamMembersReturn => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchData = async (forceRefresh = false) => {
+  const fetchData = async () => {
     try {
       // Only set loading to true if we don't have cached data
       if (teamMembers.length === 0) {
         setLoading(true);
       }
       setError(null);
-      const members = await getTeamMembers(forceRefresh);
+      
+      // Use static data instead of Google Sheets
+      const members = staticTeamMembers;
+      
       setTeamMembers(members);
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to fetch team members';
@@ -34,7 +38,7 @@ export const useTeamMembers = (): UseTeamMembersReturn => {
 
   const refetch = async () => {
     setLoading(true);
-    await fetchData(true);
+    await fetchData();
   };
 
   useEffect(() => {
@@ -42,7 +46,10 @@ export const useTeamMembers = (): UseTeamMembersReturn => {
     
     const loadData = async () => {
       try {
-        const members = await getTeamMembers(false);
+        // Use static data instead of Google Sheets
+        // const members = await getTeamMembers(false);
+        const members = staticTeamMembers;
+        
         if (mounted) {
           setTeamMembers(members);
           setLoading(false);

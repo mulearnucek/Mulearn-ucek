@@ -13,7 +13,6 @@ import Connect from "./Components/Connect/Connect";
 import Footer from "./Components/Footer/Footer";
 import Achievements from "./Components/Achievements/Achievements";
 import TeamMember from "./Components/TeamMember/TeamMember";
-import DebugGoogleSheets from "./Components/DebugGoogleSheets";
 
 // Main homepage component
 const HomePage = () => {
@@ -42,7 +41,6 @@ function App() {
             {!isTeamMemberPage && <Navbar />}
             <Routes>
                 <Route path="/" element={<HomePage />} />
-                <Route path="/debug" element={<DebugGoogleSheets />} />
                 <Route path="/team/:memberName" element={<TeamMember />} />
             </Routes>
         </div>

@@ -3,7 +3,6 @@ import { useMemo } from "react";
 import styles from "./TeamMember.module.css";
 import { useTeamMembers } from "../../hooks/useTeamMembers";
 import { FaEnvelope, FaInstagram, FaLinkedinIn, FaGithub, FaExternalLinkAlt } from "react-icons/fa";
-import { getImageUrl, handleImageError } from "../../utils/imageUtils";
 
 const TeamMember = () => {
     const { memberName } = useParams<{ memberName: string }>();
@@ -66,10 +65,13 @@ const TeamMember = () => {
                 <div className={styles.profileSection}>
                     <div className={styles.profileImage}>
                         <img 
-                            src={getImageUrl(member.image)}
+                            src={`/${member.image.replace(/\s+/g, '%20')}`}
                             alt={member.name}
                             loading="lazy"
-                            onError={(e) => handleImageError(e, member.image)}
+                            onError={(e) => {
+                                console.log('Image failed to load:', member.image);
+                                e.currentTarget.src = `/${member.image}`;
+                            }}
                         />
                     </div>
                     <h1 className={styles.memberName}>{member.name}</h1>
