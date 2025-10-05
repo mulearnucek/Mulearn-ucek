@@ -3,7 +3,7 @@ import { useMemo, useState, useRef } from "react";
 import styles from "./TeamMember.module.css";
 import { useTeamMembers } from "../../hooks/useTeamMembers";
 import { isValidTeamRoute, getMemberNameFromPath } from "../../data/staticTeamRoutes";
-import { FaEnvelope, FaInstagram, FaLinkedinIn, FaGithub, FaExternalLinkAlt } from "react-icons/fa";
+import { FaInstagram, FaLinkedinIn, FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 
 const TeamMember = () => {
     const { memberName } = useParams<{ memberName: string }>();
@@ -105,91 +105,66 @@ const TeamMember = () => {
     return (
         <div className={styles.linkTreeWrapper}>
             <div className={styles.container}>
-                <div className={styles.backButton}>
-                    <a href="/#team">← Back to Team</a>
-                </div>
-                
-                {/* Profile Section */}
-                <div className={styles.profileSection}>
-                    <div className={styles.profileImage}>
-                        {!imageError ? (
-                            <img 
-                                src={`/${member.image.replace(/\s+/g, '%20')}`}
-                                alt={member.name}
-                                loading="lazy"
-                                onError={(e) => {
-                                    imageRetryCount.current += 1;
-                                    console.log(`Image load attempt ${imageRetryCount.current} failed for:`, member.image);
-                                    
-                                    if (imageRetryCount.current < MAX_RETRIES) {
-                                        // Retry with different URL format
-                                        const target = e.currentTarget;
-                                        setTimeout(() => {
-                                            target.src = `/${member.image}`;
-                                        }, 500);
-                                    } else {
-                                        console.log('Max retries reached. Stopping image load attempts.');
-                                        setImageError(true);
-                                    }
-                                }}
-                            />
-                        ) : (
-                            <div style={{ 
-                                width: '140px', 
-                                height: '140px', 
-                                borderRadius: '50%', 
-                                background: 'linear-gradient(135deg, #667eea, #764ba2)',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                color: 'white',
-                                fontSize: '48px',
-                                fontWeight: 'bold'
-                            }}>
-                                {member.name.charAt(0).toUpperCase()}
-                            </div>
+                {/* Profile and Member Information */}
+                <div className={styles.infoSection}>
+                    <div style={{ textAlign: 'center', marginBottom: '16px', paddingBottom: '16px', borderBottom: '1px solid rgba(0, 0, 0, 0.06)' }}>
+                        <div className={styles.profileImage}>
+                            {!imageError ? (
+                                <img 
+                                    src={`/${member.image.replace(/\s+/g, '%20')}`}
+                                    alt={member.name}
+                                    loading="lazy"
+                                    style={{ width: '88px', height: '88px' }}
+                                    onError={(e) => {
+                                        imageRetryCount.current += 1;
+                                        console.log(`Image load attempt ${imageRetryCount.current} failed for:`, member.image);
+                                        
+                                        if (imageRetryCount.current < MAX_RETRIES) {
+                                            // Retry with different URL format
+                                            const target = e.currentTarget;
+                                            setTimeout(() => {
+                                                target.src = `/${member.image}`;
+                                            }, 500);
+                                        } else {
+                                            console.log('Max retries reached. Stopping image load attempts.');
+                                            setImageError(true);
+                                        }
+                                    }}
+                                />
+                            ) : (
+                                <div style={{ 
+                                    width: '88px', 
+                                    height: '88px', 
+                                    borderRadius: '50%', 
+                                    background: 'linear-gradient(135deg, #667eea, #764ba2)',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    color: 'white',
+                                    fontSize: '32px',
+                                    fontWeight: 'bold'
+                                }}>
+                                    {member.name?.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) || '??'}
+                                </div>
+                            )}
+                        </div>
+                        <h1 style={{ fontSize: '1.4rem', margin: '8px 0 4px' }}>{member.name}</h1>
+                        {member.muId && (
+                            <p style={{ fontSize: '0.75rem', color: '#666', fontWeight: '500', margin: '0' }}>
+                                {member.muId}
+                            </p>
                         )}
                     </div>
-                    <h1 className={styles.memberName}>{member.name}</h1>
-                </div>
 
-                {/* Member Information */}
-                <div className={styles.infoSection}>
-                    <div className={styles.infoItem}>
-                        <span className={styles.infoLabel}>Name</span>
-                        <span className={styles.infoValue}>{member.name}</span>
-                    </div>
-                    
                     <div className={styles.infoItem}>
                         <span className={styles.infoLabel}>Team</span>
                         <span className={styles.infoValue}>{member.team}</span>
                     </div>
                     
                     <div className={styles.infoItem}>
-                        <span className={styles.infoLabel}>Email</span>
-                        <span className={styles.infoValue}>
-                            <a href={`mailto:${member.email}`} className={styles.emailLink}>
-                                {member.email}
-                            </a>
-                        </span>
-                    </div>
-                    
-                    <div className={styles.infoItem}>
-                        <span className={styles.infoLabel}>Gender</span>
-                        <span className={styles.infoValue}>{member.gender}</span>
-                    </div>
-                    
-                    <div className={styles.infoItem}>
                         <span className={styles.infoLabel}>Position</span>
                         <span className={styles.infoValue}>{member.role}</span>
                     </div>
-                    
-                    {member.muId && (
-                        <div className={styles.infoItem}>
-                            <span className={styles.infoLabel}>MuLearn ID</span>
-                            <span className={styles.infoValue}>{member.muId}</span>
-                        </div>
-                    )}
                 </div>
 
                 {/* Social Links Section */}
@@ -236,20 +211,8 @@ const TeamMember = () => {
                     </div>
                 )}
 
-                {/* Email Compose Button */}
-                <div className={styles.actionSection}>
-                    <a 
-                        href={`mailto:${member.email}`}
-                        className={styles.composeEmailBtn}
-                    >
-                        <FaEnvelope />
-                        <span>Compose Email</span>
-                    </a>
-                </div>
-
-                {/* MuLearn UCEK Branding */}
-                <div className={styles.brandingSection}>
-                    <p>Member of MuLearn UCEK Community</p>
+                {/* MuLearn UCEK Link */}
+                <div style={{ textAlign: 'center', marginTop: '7px' }}>
                     <a href="/#home" className={styles.brandLink}>
                         Visit MuLearn UCEK
                     </a>
