@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { TeamMember } from '../data/teamData';
-// import { getTeamMembers } from '../services/googleSheets';
-import { staticTeamMembers } from '../data/staticTeamMembers';
+import { getTeamMembers } from '../services/googleSheets';
 
 interface UseTeamMembersReturn {
   teamMembers: TeamMember[];
@@ -23,10 +22,10 @@ export const useTeamMembers = (): UseTeamMembersReturn => {
       }
       setError(null);
       
-      // Use static data instead of Google Sheets
-      const members = staticTeamMembers;
-      
+      // Try to fetch from Google Sheets first (NO FALLBACK)
+      const members = await getTeamMembers(false);
       setTeamMembers(members);
+      console.log('Successfully loaded team members from Google Sheets');
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to fetch team members';
       setError(errorMessage);
@@ -46,19 +45,19 @@ export const useTeamMembers = (): UseTeamMembersReturn => {
     
     const loadData = async () => {
       try {
-        // Use static data instead of Google Sheets
-        // const members = await getTeamMembers(false);
-        const members = staticTeamMembers;
-        
+        // Try to fetch from Google Sheets (NO FALLBACK)
+        const members = await getTeamMembers(false);
         if (mounted) {
           setTeamMembers(members);
           setLoading(false);
+          console.log('Successfully loaded team members from Google Sheets');
         }
       } catch (err) {
         if (mounted) {
           const errorMessage = err instanceof Error ? err.message : 'Failed to fetch team members';
           setError(errorMessage);
           setLoading(false);
+          console.error('Google Sheets fetch failed:', err);
         }
       }
     };
