@@ -14,6 +14,7 @@ export interface TeamMember {
   email: string;
   gender: string;
   bio?: string;
+  muId?: string; // MuLearn ID
   socialLinks?: SocialLink[];
   customLinks?: {
     title: string;

@@ -1,25 +1,57 @@
 import { useParams, Navigate } from "react-router-dom";
-import { useMemo } from "react";
+import { useMemo, useState, useRef } from "react";
 import styles from "./TeamMember.module.css";
 import { useTeamMembers } from "../../hooks/useTeamMembers";
+import { isValidTeamRoute, getMemberNameFromPath } from "../../data/staticTeamRoutes";
 import { FaEnvelope, FaInstagram, FaLinkedinIn, FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 
 const TeamMember = () => {
     const { memberName } = useParams<{ memberName: string }>();
     const { teamMembers, loading, error } = useTeamMembers();
+    const [imageError, setImageError] = useState(false);
+    const imageRetryCount = useRef(0);
+    const MAX_RETRIES = 3;
+    
+    // Check if the route is allowed
+    const isValidRoute = useMemo(() => {
+        return memberName ? isValidTeamRoute(memberName) : false;
+    }, [memberName]);
+    
+    // If route is not in the allowed list, redirect immediately
+    if (!isValidRoute && !loading) {
+        return <Navigate to="/#team" replace />;
+    }
+    
+    // Get the full member name from the route mapping
+    const fullMemberName = useMemo(() => {
+        return memberName ? getMemberNameFromPath(memberName) : undefined;
+    }, [memberName]);
     
     // Memoize the member lookup to prevent unnecessary re-renders
+    // Match by exact full name to handle duplicates
     const member = useMemo(() => {
-        return teamMembers.find(m => m.id === memberName);
-    }, [teamMembers, memberName]);
+        if (!fullMemberName) return undefined;
+        
+        // Find by exact name match (case-insensitive)
+        const found = teamMembers.find(m => 
+            m.name.toLowerCase().trim() === fullMemberName.toLowerCase().trim()
+        );
+        
+        return found;
+    }, [teamMembers, fullMemberName]);
     
     // Only log once when component mounts or member changes
     useMemo(() => {
         if (memberName) {
-            console.log('Looking for member:', memberName);
+            console.log('Route path:', memberName);
+            console.log('Looking for member name:', fullMemberName);
             console.log('Found member:', member);
+            if (member) {
+                console.log('Member MuID:', member.muId);
+                console.log('Member full data:', JSON.stringify(member, null, 2));
+            }
         }
-    }, [memberName, member]);
+    }, [memberName, fullMemberName, member]);
     
     // Show loading state
     if (loading) {
@@ -49,9 +81,25 @@ const TeamMember = () => {
         );
     }
     
-    // If member not found, redirect to team page
+    // If member not found, show debug info instead of redirecting
+    if (!member && !loading) {
+        return (
+            <div className={styles.linkTreeWrapper}>
+                <div className={styles.container}>
+                    <div className={styles.errorState}>
+                        <h2>Member not found</h2>
+                        <p>Looking for: {memberName}</p>
+                        <p>Available IDs: {teamMembers.map(m => m.id).join(', ')}</p>
+                        <a href="/#team">← Back to Team</a>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+    
+    // Return null if still loading or member not ready
     if (!member) {
-        return <Navigate to="/#team" replace />;
+        return null;
     }
     
     return (
@@ -64,15 +112,43 @@ const TeamMember = () => {
                 {/* Profile Section */}
                 <div className={styles.profileSection}>
                     <div className={styles.profileImage}>
-                        <img 
-                            src={`/${member.image.replace(/\s+/g, '%20')}`}
-                            alt={member.name}
-                            loading="lazy"
-                            onError={(e) => {
-                                console.log('Image failed to load:', member.image);
-                                e.currentTarget.src = `/${member.image}`;
-                            }}
-                        />
+                        {!imageError ? (
+                            <img 
+                                src={`/${member.image.replace(/\s+/g, '%20')}`}
+                                alt={member.name}
+                                loading="lazy"
+                                onError={(e) => {
+                                    imageRetryCount.current += 1;
+                                    console.log(`Image load attempt ${imageRetryCount.current} failed for:`, member.image);
+                                    
+                                    if (imageRetryCount.current < MAX_RETRIES) {
+                                        // Retry with different URL format
+                                        const target = e.currentTarget;
+                                        setTimeout(() => {
+                                            target.src = `/${member.image}`;
+                                        }, 500);
+                                    } else {
+                                        console.log('Max retries reached. Stopping image load attempts.');
+                                        setImageError(true);
+                                    }
+                                }}
+                            />
+                        ) : (
+                            <div style={{ 
+                                width: '140px', 
+                                height: '140px', 
+                                borderRadius: '50%', 
+                                background: 'linear-gradient(135deg, #667eea, #764ba2)',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                color: 'white',
+                                fontSize: '48px',
+                                fontWeight: 'bold'
+                            }}>
+                                {member.name.charAt(0).toUpperCase()}
+                            </div>
+                        )}
                     </div>
                     <h1 className={styles.memberName}>{member.name}</h1>
                 </div>
@@ -107,6 +183,13 @@ const TeamMember = () => {
                         <span className={styles.infoLabel}>Position</span>
                         <span className={styles.infoValue}>{member.role}</span>
                     </div>
+                    
+                    {member.muId && (
+                        <div className={styles.infoItem}>
+                            <span className={styles.infoLabel}>MuLearn ID</span>
+                            <span className={styles.infoValue}>{member.muId}</span>
+                        </div>
+                    )}
                 </div>
 
                 {/* Social Links Section */}
