@@ -4,6 +4,8 @@ import styles from "./TeamMember.module.css";
 import { useTeamMembers } from "../../hooks/useTeamMembers";
 import { isValidTeamRoute, getMemberNameFromPath } from "../../data/staticTeamRoutes";
 import { FaInstagram, FaLinkedinIn, FaGithub, FaExternalLinkAlt } from "react-icons/fa";
+import MulearnUCEKLogo from "../../assets/images/MulearnUCEK.png";
+import Spinner from "../Spinner/Spinner";
 
 const TeamMember = () => {
     const { memberName } = useParams<{ memberName: string }>();
@@ -57,11 +59,7 @@ const TeamMember = () => {
     if (loading) {
         return (
             <div className={styles.linkTreeWrapper}>
-                <div className={styles.container}>
-                    <div className={styles.loadingState}>
-                        <h2>Loading team member...</h2>
-                    </div>
-                </div>
+                <Spinner size={60} color="#667eea" />
             </div>
         );
     }
@@ -97,17 +95,35 @@ const TeamMember = () => {
         );
     }
     
-    // Return null if still loading or member not ready
+    // Return spinner if still loading or member not ready
     if (!member) {
-        return null;
+        return (
+            <div className={styles.linkTreeWrapper}>
+                <Spinner size={60} color="#667eea" />
+            </div>
+        );
     }
     
     return (
         <div className={styles.linkTreeWrapper}>
             <div className={styles.container}>
+                {/* MuLearn UCEK Logo */}
+                <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+                    <a href="/#home" style={{ display: 'inline-block' }}>
+                        <img 
+                            src={MulearnUCEKLogo} 
+                            alt="MuLearn UCEK" 
+                            style={{ 
+                                height: '60px',
+                                width: 'auto'
+                            }}
+                        />
+                    </a>
+                </div>
+
                 {/* Profile and Member Information */}
                 <div className={styles.infoSection}>
-                    <div style={{ textAlign: 'center', marginBottom: '16px', paddingBottom: '16px', borderBottom: '1px solid rgba(0, 0, 0, 0.06)' }}>
+                    <div style={{ textAlign: 'center', paddingBottom: '0' }}>
                         <div className={styles.profileImage}>
                             {!imageError ? (
                                 <img 
@@ -136,7 +152,7 @@ const TeamMember = () => {
                                     width: '88px', 
                                     height: '88px', 
                                     borderRadius: '50%', 
-                                    background: 'linear-gradient(135deg, #667eea, #764ba2)',
+                                    background: '#242124',
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
@@ -150,20 +166,38 @@ const TeamMember = () => {
                         </div>
                         <h1 style={{ fontSize: '1.4rem', margin: '8px 0 4px' }}>{member.name}</h1>
                         {member.muId && (
-                            <p style={{ fontSize: '0.75rem', color: '#666', fontWeight: '500', margin: '0' }}>
+                            <p style={{ fontSize: '0.75rem', color: '#666', fontWeight: '500', margin: '0 0 8px 0' }}>
                                 {member.muId}
                             </p>
                         )}
-                    </div>
-
-                    <div className={styles.infoItem}>
-                        <span className={styles.infoLabel}>Team</span>
-                        <span className={styles.infoValue}>{member.team}</span>
-                    </div>
-                    
-                    <div className={styles.infoItem}>
-                        <span className={styles.infoLabel}>Position</span>
-                        <span className={styles.infoValue}>{member.role}</span>
+                        <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', marginTop: '12px' }}>
+                            {member.team && member.team !== 'μ' && (
+                                <span style={{ 
+                                    fontSize: '0.85rem', 
+                                    color: '#555', 
+                                    fontWeight: '600', 
+                                    padding: '6px 16px',
+                                    background: 'rgba(102, 126, 234, 0.1)',
+                                    borderRadius: '20px',
+                                    border: '1px solid rgba(102, 126, 234, 0.2)'
+                                }}>
+                                    {member.team}
+                                </span>
+                            )}
+                            {member.role && (
+                                <span style={{ 
+                                    fontSize: '0.85rem', 
+                                    color: '#555', 
+                                    fontWeight: '600', 
+                                    padding: '6px 16px',
+                                    background: 'rgba(118, 75, 162, 0.1)',
+                                    borderRadius: '20px',
+                                    border: '1px solid rgba(118, 75, 162, 0.2)'
+                                }}>
+                                    {member.role}
+                                </span>
+                            )}
+                        </div>
                     </div>
                 </div>
 
@@ -203,7 +237,6 @@ const TeamMember = () => {
                                         style={{ '--social-color': social.color } as React.CSSProperties}
                                     >
                                         <IconComponent />
-                                        <span>{social.name}</span>
                                     </a>
                                 );
                             })}
