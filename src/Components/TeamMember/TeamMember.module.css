@@ -383,7 +383,7 @@
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
     .linkTreeWrapper {
-        padding: 20px 15px 20px;
+        padding: 120px 15px 20px;
         align-items: flex-start;
     }
     
