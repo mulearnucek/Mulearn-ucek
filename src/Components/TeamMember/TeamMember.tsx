@@ -99,13 +99,13 @@ const TeamMember = () => {
         <div className={styles.linkTreeWrapper}>
             <div className={styles.container}>
                 {/* MuLearn UCEK Logo */}
-                <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+                <div style={{ textAlign: 'center', marginBottom: '10px', marginTop: '0' }}>
                     <Link to="/" style={{ display: 'inline-block' }}>
                         <img 
                             src={MulearnUCEKLogo} 
                             alt="μLearn UCEK" 
                             style={{ 
-                                height: '60px',
+                                height: '50px',
                                 width: 'auto',
                                 cursor: 'pointer'
                             }}
@@ -237,7 +237,7 @@ const TeamMember = () => {
                 )}
 
                 {/* MuLearn UCEK Link */}
-                <div style={{ textAlign: 'center', marginTop: '7px' }}>
+                <div style={{ textAlign: 'center', marginTop: '4px' }}>
                     <a href="/#home" className={styles.brandLink}>
                         μLearn UCEK
                     </a>
