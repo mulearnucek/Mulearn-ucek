@@ -1,4 +1,4 @@
-import { useParams, Navigate } from "react-router-dom";
+import { useParams, Navigate, Link } from "react-router-dom";
 import { useMemo, useState, useRef } from "react";
 import styles from "./TeamMember.module.css";
 import { useTeamMembers } from "../../hooks/useTeamMembers";
@@ -80,7 +80,7 @@ const TeamMember = () => {
     }
     
     // If member not found, show debug info instead of redirecting
-    if (!member && !loading) {
+    if (!member) {
         return (
             <div className={styles.linkTreeWrapper}>
                 <div className={styles.container}>
@@ -95,30 +95,22 @@ const TeamMember = () => {
         );
     }
     
-    // Return spinner if still loading or member not ready
-    if (!member) {
-        return (
-            <div className={styles.linkTreeWrapper}>
-                <Spinner size={60} color="#667eea" />
-            </div>
-        );
-    }
-    
     return (
         <div className={styles.linkTreeWrapper}>
             <div className={styles.container}>
                 {/* MuLearn UCEK Logo */}
                 <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-                    <a href="/#home" style={{ display: 'inline-block' }}>
+                    <Link to="/" style={{ display: 'inline-block' }}>
                         <img 
                             src={MulearnUCEKLogo} 
-                            alt="MuLearn UCEK" 
+                            alt="μLearn UCEK" 
                             style={{ 
                                 height: '60px',
-                                width: 'auto'
+                                width: 'auto',
+                                cursor: 'pointer'
                             }}
                         />
-                    </a>
+                    </Link>
                 </div>
 
                 {/* Profile and Member Information */}
@@ -247,7 +239,7 @@ const TeamMember = () => {
                 {/* MuLearn UCEK Link */}
                 <div style={{ textAlign: 'center', marginTop: '7px' }}>
                     <a href="/#home" className={styles.brandLink}>
-                        Visit MuLearn UCEK
+                        μLearn UCEK
                     </a>
                 </div>
             </div>
