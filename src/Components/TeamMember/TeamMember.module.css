@@ -383,7 +383,7 @@
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
     .linkTreeWrapper {
-        padding: 5px 15px 20px;
+        padding: 20px 15px 20px;
         align-items: flex-start;
     }
     
@@ -473,7 +473,7 @@
 
 @media (max-width: 480px) {
     .linkTreeWrapper {
-        padding: 5px 12px 15px;
+        padding: 150px 12px 15px;
         align-items: flex-start;
     }
     
