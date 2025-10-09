@@ -134,10 +134,10 @@ export const getTeamMembers = async (forceRefresh: boolean = false): Promise<Tea
         const member: TeamMember = {
           id: id,
           name: row[1]?.trim() || '', // Name column (index 1)
-          gender: row[3]?.trim() || '', // Gender column (index 3)
+          gender: '', // Gender not fetched
           role: row[4]?.trim() || '', // Position column (index 4)
           team: row[5]?.trim() || '', // Team column (index 5)
-          email: row[7]?.trim() || '', // Email column (index 7)
+          email: '', // Email not fetched
           image: row[9]?.trim() || '', // Photo column (index 9)
           muId: row[13]?.trim() || '', // MuID column (index 13)
           socialLinks: socialLinks,
