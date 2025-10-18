@@ -9,21 +9,26 @@ interface UseTeamMembersReturn {
   refetch: () => Promise<void>;
 }
 
+// Cache the team members data globally
+let cachedTeamMembers: TeamMember[] | null = null;
+let cachePromise: Promise<TeamMember[]> | null = null;
+
 export const useTeamMembers = (): UseTeamMembersReturn => {
-  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [teamMembers, setTeamMembers] = useState<TeamMember[]>(cachedTeamMembers || []);
+  const [loading, setLoading] = useState(!cachedTeamMembers);
   const [error, setError] = useState<string | null>(null);
 
   const fetchData = async () => {
     try {
       // Only set loading to true if we don't have cached data
-      if (teamMembers.length === 0) {
+      if (!cachedTeamMembers) {
         setLoading(true);
       }
       setError(null);
       
       // Try to fetch from Google Sheets first (NO FALLBACK)
       const members = await getTeamMembers(false);
+      cachedTeamMembers = members;
       setTeamMembers(members);
       console.log('Successfully loaded team members from Google Sheets');
     } catch (err) {
@@ -43,10 +48,40 @@ export const useTeamMembers = (): UseTeamMembersReturn => {
   useEffect(() => {
     let mounted = true;
     
+    // If we already have cached data, use it immediately
+    if (cachedTeamMembers) {
+      setTeamMembers(cachedTeamMembers);
+      setLoading(false);
+      return;
+    }
+
+    // If cache promise exists, reuse it
+    if (cachePromise) {
+      cachePromise
+        .then(members => {
+          if (mounted) {
+            setTeamMembers(members);
+            setLoading(false);
+          }
+        })
+        .catch(err => {
+          if (mounted) {
+            const errorMessage = err instanceof Error ? err.message : 'Failed to fetch team members';
+            setError(errorMessage);
+            setLoading(false);
+            console.error('Google Sheets fetch failed:', err);
+          }
+        });
+      return;
+    }
+    
     const loadData = async () => {
       try {
         // Try to fetch from Google Sheets (NO FALLBACK)
-        const members = await getTeamMembers(false);
+        cachePromise = getTeamMembers(false);
+        const members = await cachePromise;
+        cachedTeamMembers = members;
+        
         if (mounted) {
           setTeamMembers(members);
           setLoading(false);
@@ -59,6 +94,8 @@ export const useTeamMembers = (): UseTeamMembersReturn => {
           setLoading(false);
           console.error('Google Sheets fetch failed:', err);
         }
+      } finally {
+        cachePromise = null;
       }
     };
 
