@@ -34,15 +34,15 @@ const HomePage = () => {
 
 function App() {
     const location = useLocation();
-    const isTeamMemberPage = location.pathname.startsWith('/team/');
+    const needNavbar = location.pathname == '/'
     
     return (
         <div className="appWrapper">
-            {!isTeamMemberPage && <Navbar />}
+            {needNavbar && <Navbar />}
             <Routes>
+                <Route path="/apply" element={<RedirectToForm />} />
                 <Route path="/" element={<HomePage />} />
                 <Route path="/team/:memberName" element={<TeamMember />} />
-                <Route path="/apply" element={<RedirectToForm />} />
             </Routes>
         </div>
     );
@@ -50,7 +50,9 @@ function App() {
 
 function RedirectToForm() {
     window.location.href = "https://docs.google.com/forms/d/e/1FAIpQLSesxCoaHbwmZ4pVQ2ECz2qyeFHPnD07eE7AT-7n2piR75mp0w/viewform";
-    return "Redirecting...";
+    return <div className="redirect-main">
+        <div className="progress"></div><br />
+    </div>
 }
 
 export default App;
