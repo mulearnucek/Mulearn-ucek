@@ -42,9 +42,15 @@ function App() {
             <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/team/:memberName" element={<TeamMember />} />
+                <Route path="/apply" element={<RedirectToForm />} />
             </Routes>
         </div>
     );
+}
+
+function RedirectToForm() {
+    window.location.href = "https://docs.google.com/forms/d/e/1FAIpQLSesxCoaHbwmZ4pVQ2ECz2qyeFHPnD07eE7AT-7n2piR75mp0w/viewform";
+    return "Redirecting...";
 }
 
 export default App;
